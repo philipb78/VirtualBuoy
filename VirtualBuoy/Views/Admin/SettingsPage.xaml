@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Views.Admin.SettingsPage"
+             Shell.PresentationMode="ModalAnimated">
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="FillAndExpand">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Internal GPS"
+                VerticalOptions="Center"
+                HorizontalOptions="StartAndExpand" />
+                <RadioButton x:Name="IsGPS" Value="INTGPS" GroupName="DataProvider" IsChecked="{Binding Mode=TwoWay,Path= IsIntGPSSelected}" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="TCP/IP NMEA 0183"
+                VerticalOptions="Center"
+                HorizontalOptions="StartAndExpand" />
+                <RadioButton x:Name="IsNMEA" Value="TCPIP_NMEA" GroupName="DataProvider"  IsChecked="{Binding Mode=TwoWay,Path= IsNMEASelected}" />
+            </StackLayout>
+            <Label Text="Server Address"
+                VerticalOptions="Center"
+                HorizontalOptions="StartAndExpand" />
+            <Entry Keyboard="Plain"  VerticalOptions="Center" HorizontalOptions="FillAndExpand" Text="{Binding Mode=TwoWay,Path= ServerAddress}"  IsEnabled="{Binding IsNMEASelected}" />
+            <Label  Text="Port" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+            <Entry Keyboard="Numeric" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Text="{Binding Mode=TwoWay,Path= Port}" IsEnabled="{Binding  IsNMEASelected}" />
+
+            <StackLayout Orientation="Horizontal">
+
+                <Label VerticalOptions="Center" HorizontalOptions="StartAndExpand" Text="Enable Bluetooth Displays" />
+                <CheckBox  VerticalOptions="Center" IsChecked="{Binding Mode=TwoWay,Path= IsBluetoothEnabled}" />
+            </StackLayout>
+
+            <Label Text="MB Tiles Map"></Label>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding MBTilesMapFile}" HorizontalOptions="StartAndExpand" VerticalOptions="Center"></Label>
+                <Button Text="Select" Command="{Binding SelectFileCommand}" VerticalOptions="Center"></Button>
+                <Button Text="Clear" Command="{Binding ClearFileCommand}" VerticalOptions="Center"></Button>
+            </StackLayout>
+            <Label  Text="Tack Angle" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+            <Entry Keyboard="Numeric"  VerticalOptions="Center" HorizontalOptions="FillAndExpand" Text="{Binding Mode=TwoWay,Path= TackAngle}" />
+
+            <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
+                <Button VerticalOptions="Center" Text="Ok" Command="{Binding OKCommand}" />
+                <Button VerticalOptions="Center" Text="Cancel" Command="{Binding CancelCommand}" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

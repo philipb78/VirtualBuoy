@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ViewModels.CourseVM;assembly=ViewModels"
+             x:Class="Views.Course.ConfigureCourse"
+             IsBusy="{Binding IsBusy}"
+             Shell.PresentationMode="Modal">
+
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Course Marks" Style="{DynamicResource TitleStyle}" HorizontalOptions="StartAndExpand" />
+                <Button Text="Add Mark"  HorizontalOptions="End" VerticalOptions="Center" Command="{Binding AddMarkToCourseCommand}" />
+            </StackLayout>
+            <ListView x:Name="ActiveCourseMarks" ItemsSource="{Binding ActiveCourseMarks}"  SelectionMode="None">
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Order}" Style="{DynamicResource BodyStyle}" HorizontalOptions="Start" VerticalOptions="Center" />
+                                <Picker ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type local:ConfigureCourseVM}}, Path=AllCourseMarks}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding CourseMark}"  Style="{DynamicResource BodyStyle}" HorizontalOptions="FillAndExpand" VerticalOptions="Center" />
+
+                                <Switch HorizontalOptions="End" VerticalOptions="Center" IsToggled="{Binding IsStarboardPass, Mode=TwoWay}" BackgroundColor="{Binding MarkSideColour}" />
+                                <StackLayout Orientation="Horizontal">
+                                    <Button Text="Up" CommandParameter="{Binding .}" Command="{Binding  Source={x:Reference Name=ActiveCourseMarks} ,Path=BindingContext.UpCommand}" FontSize="Small" />
+                                    <Button Text="Down" CommandParameter="{Binding .}" Command="{Binding  Source={x:Reference Name=ActiveCourseMarks} ,Path=BindingContext.DownCommand}" FontSize="Small" />
+                                </StackLayout>
+                            </StackLayout>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Remove Mark" IsDestructive="True" Command="{Binding  Source={x:Reference Name=ActiveCourseMarks} ,Path=BindingContext.DeleteMarkCommand}" CommandParameter="{Binding .}" />
+                            </ViewCell.ContextActions>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

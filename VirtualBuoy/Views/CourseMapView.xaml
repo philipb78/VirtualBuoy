@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mapsui="clr-namespace:Mapsui.UI.Forms;assembly=Mapsui.UI.Forms"
+             xmlns:customMap="clr-namespace:UserControls;assembly=UserControls"
+             x:Class="Views.Course.CourseMapView">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <customMap:CourseMapView x:Name="mapView"
+         VerticalOptions="FillAndExpand"
+         HorizontalOptions="FillAndExpand"
+        IsMyLocationButtonVisible="True"
+        MyLocationFollow="True"
+        IsNorthingButtonVisible="True"
+        MyLocation="{Binding MyLocation}"
+        MySpeed="{Binding MySpeed}"
+        MyHeading="{Binding MyHeading}"
+        MBTilesMapPath="{Binding MBTilesPath}"
+
+         BackgroundColor="Gray"
+         Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="3" />
+            <Label Text="{Binding TimeToMark}" Grid.Row="0" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Start" FontSize="Large" TextColor="Red"></Label>
+            <Label Text="{Binding DistanceToMark}" Grid.Row="0" Grid.Column="2" HorizontalOptions="End" VerticalOptions="Start" FontSize="Large" TextColor="Red"></Label>
+            <Label Text="{Binding SpeedKT}" Grid.Row="2" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="End" FontSize="Large" TextColor="Red"></Label>
+            <Label Text="{Binding MarkVMG}" Grid.Row="2" Grid.Column="2" HorizontalOptions="End"  VerticalOptions="End"  FontSize="Large" TextColor="Red"></Label>
+            <StackLayout Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"   Orientation="Vertical" IsVisible="{Binding MapLogPlayer.ShowLogPlayer}" HorizontalOptions="FillAndExpand">
+                <Slider Value="{Binding Path=MapLogPlayer.LogPosition, Mode=TwoWay}" Maximum="{Binding MapLogPlayer.LogMax}" Minimum="0" HorizontalOptions="FillAndExpand"></Slider>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Button Text="Stop Replay" Command="{Binding MapLogPlayer.StopCommand}" />
+                    <Button Text="Play/Pause" Command="{Binding MapLogPlayer.StartToggleCommand}" />
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
